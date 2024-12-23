@@ -10,6 +10,7 @@ app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
 app.listen(port, () => {
+    console.log(`ready ${port}`);
     app.post('/sendEmail',(req, res) => {
         var transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
@@ -17,13 +18,13 @@ app.listen(port, () => {
             secure: true,
             auth: {
                 user: 'vunht96@gmail.com',
-                pass: 'PHIhung@123'
+                pass: 'qfdl gomk usje evdg'
             }
         });
         var mailOptions = {
             to: 'vunht96@gmail.com',
             from: 'vunht96@gmail.com',
-            subject:'[' + req.body.email + ']-' + req.body.subject,
+            subject:`[VTIMER.ORG - ${req.body.email}] - ${req.body.subject}`,
             text: req.body.message
         }
         transporter.sendMail(mailOptions, function (err, info) {
