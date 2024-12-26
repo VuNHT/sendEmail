@@ -12,6 +12,7 @@ app.use(BodyParser.urlencoded({ extended: true }));
 app.listen(port, () => {
     console.log(`ready ${port}`);
     app.post('/sendEmail',(req, res) => {
+        if (req.body.token) {
         var transporter = nodemailer.createTransport({
             host: 'smtp.gmail.com',
             port: 465,
@@ -30,14 +31,19 @@ app.listen(port, () => {
         transporter.sendMail(mailOptions, function (err, info) {
             if (err) {
                 res.status(500).send({
-                    message: "Send Email fail !!"
+                    message: "Send Email failed !!"
                 })
             }
             else {
                 res.status(200).send({
-                    message: "Send Email Success !!"
+                    message: "Send Email Successfully !!"
                 })
             }
         });
+    } else {
+        res.status(500).send({
+            message: "Send Email failed !!"
+        })
+    }
     });
 })
